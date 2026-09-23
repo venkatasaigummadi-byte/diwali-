@@ -4,7 +4,7 @@ import os
 
 def create_qr_and_banner():
     project_dir = r"C:\Users\venka\Downloads\66"
-    target_url = "https://sriayyappacracker.vercel.app"
+    target_url = "https://sriayyappacrackervercelapp.vercel.app"
     
     # 1. Generate High-Res Pure QR Code
     qr = qrcode.QRCode(
@@ -152,7 +152,7 @@ def create_qr_and_banner():
 
     # Website URL below QR code inside card
     draw.rounded_rectangle([qr_card_x + 40, qr_card_y + qr_card_h - 75, qr_card_x + qr_card_w - 40, qr_card_y + qr_card_h - 20], radius=15, fill=(245, 243, 235), outline=(218, 165, 32), width=1)
-    draw.text((width // 2, qr_card_y + qr_card_h - 48), "sriayyappacracker.vercel.app", font=font_url, fill=(10, 80, 180), anchor="mm")
+    draw.text((width // 2, qr_card_y + qr_card_h - 48), "sriayyappacrackervercelapp.vercel.app", font=font_url, fill=(10, 80, 180), anchor="mm")
 
     # Order Helpline Section
     contact_y = 1480
