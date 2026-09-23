@@ -820,6 +820,22 @@ async function uploadBillImage(canvas) {
 }
 
 // Send Order via WhatsApp (Direct Redirect with Bill Image Link)
+function canvasToFile(canvas, filename = 'Sri_Ayyappa_Crackers_Bill.png') {
+  return new Promise((resolve) => {
+    try {
+      canvas.toBlob((blob) => {
+        if (blob && window.File) {
+          resolve(new File([blob], filename, { type: 'image/png' }));
+        } else {
+          resolve(null);
+        }
+      }, 'image/png');
+    } catch (e) {
+      resolve(null);
+    }
+  });
+}
+
 async function sendWhatsAppBillOrder() {
   if (!lastGeneratedBill) return;
 
@@ -832,12 +848,13 @@ async function sendWhatsAppBillOrder() {
 
   const canvas = document.getElementById('billCanvas');
   let imageUrl = null;
+  let billFile = null;
 
   if (canvas) {
-    // 1. Try uploading to get direct image preview link
+    // Try uploading to get a direct image preview link (paste-able fallback)
     imageUrl = await uploadBillImage(canvas);
 
-    // 2. Also copy image to clipboard for desktop users to easily paste (Ctrl+V)
+    // Also copy image to clipboard for desktop users to easily paste (Ctrl+V)
     try {
       if (canvas.toBlob && navigator.clipboard && window.ClipboardItem) {
         canvas.toBlob((blob) => {
@@ -847,6 +864,9 @@ async function sendWhatsAppBillOrder() {
         }, 'image/png');
       }
     } catch (e) {}
+
+    // Convert to a File so it can be attached via the native share sheet
+    billFile = await canvasToFile(canvas);
   }
 
   let itemsList = '';
@@ -868,7 +888,7 @@ ${itemsList}
 --------------------------------------------
 📊 *Total Items:* ${cart.reduce((sum, i) => sum + i.quantity, 0)}
 💰 *Grand Total Payable:* ₹${lastGeneratedBill.grandTotal} (20% Festive Discount Applied)
-${imageUrl ? `--------------------------------------------\n🖼️ *OFFICIAL BILL RECEIPT IMAGE:*\n${imageUrl}\n` : ''}--------------------------------------------
+--------------------------------------------
 Please confirm my order and share payment modes & delivery dispatch. Thank you! 🙏`;
 
   const targetPhone = lastGeneratedBill.targetPhone || '9640499753';
@@ -882,8 +902,24 @@ Please confirm my order and share payment modes & delivery dispatch. Thank you! 
   playCrackerSound(2.0);
   triggerFireworksBurst(window.innerWidth / 2, window.innerHeight / 2);
 
-  // Directly redirect to WhatsApp without opening device share picker!
-  window.open(waUrl, '_blank');
+  // 1) Prefer the native share sheet so the actual bill photo is ATTACHED
+  //    to WhatsApp (wa.me links can only carry text, not images).
+  if (billFile && navigator.share && navigator.canShare && navigator.canShare({ files: [billFile] })) {
+    try {
+      await navigator.share({ files: [billFile], text: message });
+      return; // done — image + text delivered via the chosen app
+    } catch (err) {
+      if (err && err.name === 'AbortError') return; // user cancelled the share sheet
+      // Share failed for another reason: fall through to the wa.me deep link.
+    }
+  }
+
+  // 2) Fallback: wa.me deep link with full text + the bill receipt image link
+  if (imageUrl) {
+    window.open(`${waUrl.replace(/\?text=.*$/, '')}?text=${encodeURIComponent(message + '\n🖼️ Official Bill Receipt Image:\n' + imageUrl)}`, '_blank');
+  } else {
+    window.open(waUrl, '_blank');
+  }
 }
 
 // Checkout Entire Cart: Validate address, generate Bill Receipt Image, and open modal
