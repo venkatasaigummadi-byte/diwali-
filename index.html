@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sri Ayyappa Crackers | 2026 Festive Fireworks Collection - 20% OFF</title>
+  <meta name="description" content="Shop premium Sivakasi fireworks & crackers from Sri Ayyappa Crackers. Enjoy 20% festival discount, sparklers, chakkars, flower pots, sky shots, and family packs with direct WhatsApp ordering!">
+  <meta name="keywords" content="Sri Ayyappa Crackers, Diwali crackers, Sivakasi fireworks, buy crackers online, WhatsApp crackers order, festival fireworks">
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="Sri Ayyappa Crackers - 2026 Collection 20% OFF">
+  <meta property="og:description" content="Light up your celebrations with safe, genuine Sivakasi fireworks. Direct order via WhatsApp!">
+  <meta property="og:image" content="images/hero-banner-2.jpg">
+  <meta property="og:type" content="website">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🪔</text></svg>">
+
+  <!-- Performance: fonts + above-the-fold hero image -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="image" href="images/hero-banner-2.jpg" fetchpriority="high">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Accessibility: Skip Navigation -->
+  <a href="#catalog" class="skip-link">Skip to cracker catalog</a>
+
+  <!-- Accessibility: Page Heading (visually hidden) -->
+  <h1 class="visually-hidden">Sri Ayyappa Crackers — 2026 Festive Fireworks Collection, Flat 20% OFF</h1>
+
+  <!-- Scroll Progress Indicator -->
+  <div id="scrollProgressBar" role="progressbar" aria-label="Page scroll progress" aria-valuemin="0" aria-valuemax="100"></div>
+
+  <!-- Ambient Fireworks Particle Canvas -->
+  <canvas id="fireworksCanvas"></canvas>
+
+  <!-- Top Announcement Ticker Bar -->
+  <div class="top-ticker-bar">
+    <div class="container top-ticker-inner">
+      <div class="ticker-viewport">
+        <div class="ticker-track">
+          <div class="ticker-content">
+            <span class="ticker-item">
+              <span class="ticker-discount-badge">🎆 2026 DIWALI OFFER</span>
+              <span>FLAT 20% SPECIAL DISCOUNT ON ALL FIREWORKS!</span>
+            </span>
+            <span class="ticker-item ticker-item-secondary">
+              <span>✨ 100% Genuine Sivakasi Quality & Fast Dispatch</span>
+            </span>
+          </div>
+          <div class="ticker-content" aria-hidden="true">
+            <span class="ticker-item">
+              <span class="ticker-discount-badge">🎆 2026 DIWALI OFFER</span>
+              <span>FLAT 20% SPECIAL DISCOUNT ON ALL FIREWORKS!</span>
+            </span>
+            <span class="ticker-item ticker-item-secondary">
+              <span>✨ 100% Genuine Sivakasi Quality & Fast Dispatch</span>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="ticker-actions">
+        <button id="soundToggleBtn" class="sound-toggle-btn" title="Toggle celebratory festive sound effects" aria-pressed="true">
+          🔊 Sound ON
+        </button>
+        <a href="tel:+919640499753" class="quick-call-link">
+          📞 <span>Order Helpline: 9640499753</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Navigation Header -->
+  <header class="main-header">
+    <div class="container">
+      <nav class="nav-inner">
+        <a href="#hero" class="brand-logo-area">
+          <div class="brand-symbol">🪔</div>
+          <div class="brand-text">
+            <span class="brand-title">Sri Ayyappa</span>
+            <span class="brand-subtitle">Crackers · Sivakasi</span>
+          </div>
+        </a>
+
+        <ul class="nav-links-desktop">
+          <li><a href="#catalog" class="nav-link">Cracker Collection</a></li>
+          <li><a href="#special-promo" class="nav-link">Family Pack</a></li>
+          <li><a href="#safety" class="nav-link">Safety Guidelines</a></li>
+          <li><a href="#contacts" class="nav-link">Contact & Orders</a></li>
+        </ul>
+
+        <div class="nav-right-actions">
+          <button class="nav-toggle-btn" id="navToggleBtn" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobileNavPanel">
+            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-bar"></span>
+          </button>
+
+          <button class="header-cart-btn" data-action="open-cart" title="View Diwali Cart" aria-label="Open shopping cart">
+            <span>🛒 Cart</span>
+            <span class="cart-count-pill" id="headerCartCount">0</span>
+          </button>
+
+          <a href="https://wa.me/919640499753?text=Hello%20Sri%20Ayyappa%20Crackers%2C%20I%20would%20like%20to%20enquire%20about%20fireworks%20booking%20and%20price%20list!" target="_blank" rel="noopener noreferrer" class="header-whatsapp-btn" aria-label="Chat with us on WhatsApp">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+            <span>WhatsApp Us</span>
+          </a>
+        </div>
+      </nav>
+
+      <!-- Mobile Navigation Panel -->
+      <div class="mobile-nav-panel" id="mobileNavPanel">
+        <ul class="mobile-nav-links">
+          <li><a href="#catalog" class="mobile-nav-link">Cracker Collection</a></li>
+          <li><a href="#special-promo" class="mobile-nav-link">Family Pack</a></li>
+          <li><a href="#safety" class="mobile-nav-link">Safety Guidelines</a></li>
+          <li><a href="#contacts" class="mobile-nav-link">Contact & Orders</a></li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section with Dual Banner Carousel -->
+  <section id="hero" class="hero-section">
+    <div class="container">
+      <div class="hero-banner-slider">
+        <div class="banner-slides-container" id="bannerSlidesContainer">
+          <!-- Slide 1: Sri Ayyappa Swami Divine Festive Banner -->
+          <div class="hero-slide">
+            <img src="images/hero-banner-2.jpg" alt="Sri Ayyappa Crackers 2026 Collection with Lord Ayyappa" class="hero-slide-img" width="1536" height="1024" fetchpriority="high" decoding="async">
+            <div class="hero-slide-overlay">
+              <div class="hero-badge-row">
+                <span class="hero-tag offer">🔥 20% SPECIAL DISCOUNT</span>
+                <span class="hero-tag">✨ 2026 NEW COLLECTION</span>
+                <span class="hero-tag">🛡️ SAFE & CERTIFIED</span>
+              </div>
+              <h2 class="hero-slide-title">Light Up Your Celebrations!</h2>
+              <p class="hero-slide-subtitle">Authentic Sivakasi standard fireworks with vibrant colors, dazzling sparks, and festive happiness for every family.</p>
+              <div class="hero-cta-group">
+                <a href="#catalog" class="btn-primary-hero">🛒 Explore Fireworks</a>
+                <a href="https://wa.me/919640499753?text=Hello%20Sri%20Ayyappa%20Crackers%2C%20please%20send%20the%20complete%202026%20price%20list!" target="_blank" class="btn-whatsapp-hero">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                  Instant WhatsApp Order
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 2: Festive Night Fireworks Showcase Banner -->
+          <div class="hero-slide">
+            <img src="images/hero-banner-1.jpg" alt="Sri Ayyappa Crackers Festive Fireworks Display" class="hero-slide-img" width="1536" height="1024" decoding="async">
+            <div class="hero-slide-overlay">
+              <div class="hero-badge-row">
+                <span class="hero-tag offer">🎆 BRIGHTER & HAPPIER</span>
+                <span class="hero-tag">🚚 FAST ON-TIME DISPATCH</span>
+                <span class="hero-tag">💰 WHOLESALE RATES</span>
+              </div>
+              <h2 class="hero-slide-title">Brighter, Bigger, Happier!</h2>
+              <p class="hero-slide-subtitle">Sparklers, Ground Chakkars, Flower Pots, Whistling Rockets & Spectacular Multi-Shots ready for direct home delivery.</p>
+              <div class="hero-cta-group">
+                <a href="#catalog" class="btn-primary-hero">⚡ View Special Packs</a>
+                <a href="tel:+919640499753" class="btn-whatsapp-hero" style="background: linear-gradient(135deg, #ff6b00, #ff9100);">
+                  📞 Call Gowtham: 9640499753
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slider Arrow Controls -->
+        <button class="slider-arrow-btn prev" id="sliderPrevBtn" aria-label="Previous Slide">‹</button>
+        <button class="slider-arrow-btn next" id="sliderNextBtn" aria-label="Next Slide">›</button>
+
+        <!-- Slider Dots -->
+        <div class="slider-dots" role="tablist" aria-label="Hero banner slides">
+          <button type="button" class="slider-dot active" role="tab" aria-label="Go to slide 1" aria-selected="true"></button>
+          <button type="button" class="slider-dot" role="tab" aria-label="Go to slide 2" aria-selected="false"></button>
+        </div>
+      </div>
+
+      <!-- Trust Highlights Strip -->
+      <div class="festive-highlights-strip">
+        <div class="highlight-box">
+          <div class="highlight-icon">🏷️</div>
+          <div class="highlight-info">
+            <h4>20% Festive Discount</h4>
+            <p>Direct wholesale price on all crackers</p>
+          </div>
+        </div>
+
+        <div class="highlight-box">
+          <div class="highlight-icon">🛡️</div>
+          <div class="highlight-info">
+            <h4>Safe & Tested Quality</h4>
+            <p>100% Genuine Sivakasi standard fireworks</p>
+          </div>
+        </div>
+
+        <div class="highlight-box">
+          <div class="highlight-icon">💬</div>
+          <div class="highlight-info">
+            <h4>Direct WhatsApp Buy</h4>
+            <p>Instant booking with product name & price</p>
+          </div>
+        </div>
+
+        <div class="highlight-box">
+          <div class="highlight-icon">🚚</div>
+          <div class="highlight-info">
+            <h4>Fast & Safe Delivery</h4>
+            <p>Reliable packing and on-time festive dispatch</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sticky Catalog Toolbar Section -->
+  <section class="catalog-toolbar-section" id="catalog">
+    <div class="container">
+      <div class="toolbar-layout">
+        <!-- Search and Sort Row -->
+        <div class="search-and-filter-row">
+          <div class="search-box-wrapper">
+            <span class="search-icon" aria-hidden="true">🔍</span>
+            <input type="text" id="searchInput" class="search-input-field" placeholder="Search by cracker name (e.g. Kakarapulu, Shots, Wala, Bomb)..." aria-label="Search crackers by name or category" autocomplete="off">
+            <button id="searchClearBtn" class="search-clear-btn" title="Clear Search" aria-label="Clear search">✕</button>
+          </div>
+
+          <div class="sort-select-wrapper">
+            <select id="sortSelect" class="sort-select" aria-label="Sort Crackers">
+              <option value="popular">⭐ Most Popular & Featured</option>
+              <option value="price-low">💰 Price: Low to High</option>
+              <option value="price-high">💎 Price: High to Low</option>
+              <option value="rating">🌟 Highest Rated</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Category Filter Pills -->
+        <div class="category-scroll-container" id="categoryScrollContainer">
+          <!-- Populated dynamically -->
+        </div>
+
+        <!-- Catalog Status Counter -->
+        <div class="catalog-stats-row">
+          <span id="catalogCount" aria-live="polite">Loading products...</span>
+          <span>Category: <span id="activeCategoryName" class="active-filter-label">All Fireworks</span></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Products Catalog Grid Section -->
+  <main class="products-section">
+    <div class="container">
+      <div class="section-header-wrap">
+        <span class="section-tag">Diwali 2026 Collection</span>
+        <h2 class="section-title">Explore Our <span>Festive Fireworks</span></h2>
+        <p class="section-desc">Click <strong>"WhatsApp Buy"</strong> on any cracker to instantly order with name & price, or add multiple items to your Diwali Cart!</p>
+      </div>
+
+      <!-- Dynamic Products Grid -->
+      <div class="products-grid" id="productsGrid">
+        <!-- Injected dynamically via js/app.js -->
+      </div>
+    </div>
+  </main>
+
+  <!-- Special Family Pack Featured Showcase Banner -->
+  <section class="special-promo-section" id="special-promo">
+    <div class="container">
+      <div class="promo-banner-card">
+        <div>
+          <span class="promo-tag">🎁 Limited Edition Family Pack</span>
+          <h2 class="promo-title">Sri Ayyappa Mega Family Dhamaka Pack</h2>
+          <p class="promo-desc">Complete festival fireworks treasure box packed with something special for everyone in the family! Includes high-flying rockets, dazzling flower pots, color sparklers, fast ground chakkars, aerial multi-shots, and traditional sound crackers.</p>
+          
+          <div class="promo-items-list">
+            <div class="promo-item-pill">✨ Deluxe Sparklers Pack</div>
+            <div class="promo-item-pill">🌸 Jumbo Flower Pots</div>
+            <div class="promo-item-pill">🌀 High-Speed Chakkars</div>
+            <div class="promo-item-pill">🚀 Whistling Sky Rockets</div>
+            <div class="promo-item-pill">💥 Festive Sound Crackers</div>
+            <div class="promo-item-pill">🎆 Colorful Multi-Shots</div>
+          </div>
+
+          <div class="promo-price-block">
+            <span class="promo-price">₹2,000</span>
+            <span class="promo-original">₹2,500</span>
+            <span class="save-pill promo-save-pill">Save ₹500 (20% OFF)</span>
+          </div>
+
+          <div class="promo-cta-group">
+            <a href="https://wa.me/919640499753?text=Hello%20Sri%20Ayyappa%20Crackers%2C%20I%20want%20to%20order%20the%20Mega%20Family%20Pack%20(Diwali%20Dhamaka)%20for%20%E2%82%B92000!%20Please%20confirm%20availability." target="_blank" rel="noopener noreferrer" class="btn-whatsapp-hero">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+              Order Family Pack on WhatsApp
+            </a>
+            <button class="btn-primary-hero" onclick="addToCart(PRODUCTS.find(p => p.id === 'family-pack-deluxe'), 1)">
+              🛒 Add Pack to Cart
+            </button>
+          </div>
+        </div>
+
+        <div class="promo-image-box">
+          <img src="images/family-pack.jpg" alt="Mega Family Fireworks Pack" width="500" height="500" loading="lazy" decoding="async">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Safety Guidelines Section -->
+  <section class="safety-section" id="safety">
+    <div class="container">
+      <div class="section-header-wrap">
+        <span class="section-tag">Safety First</span>
+        <h2 class="section-title">Celebrate Diwali with <span>Safety & Joy</span></h2>
+        <p class="section-desc">Fireworks bring supreme joy when handled responsibly. Please follow these essential precautions for a safe celebration.</p>
+      </div>
+
+      <div class="safety-grid">
+        <div class="safety-card dos">
+          <h3 class="safety-card-title">✅ DO's for Safe Fireworks</h3>
+          <ul class="safety-list">
+            <li><span>💧</span> Always keep two buckets of water or sand nearby for emergency extinguishing.</li>
+            <li><span>👕</span> Wear snug cotton clothes and footwear while bursting firecrackers.</li>
+            <li><span>📏</span> Light fireworks outdoors in an open space, away from dried leaves and wires.</li>
+            <li><span>🕯️</span> Always use an incense stick (agarbatti) or long sparkler to ignite crackers at arm's length.</li>
+            <li><span>👨‍👧</span> Ensure constant adult supervision whenever children are around fireworks.</li>
+          </ul>
+        </div>
+
+        <div class="safety-card donts">
+          <h3 class="safety-card-title">❌ DON'Ts to Remember</h3>
+          <ul class="safety-list">
+            <li><span>🚫</span> Never attempt to ignite crackers while holding them in your hands.</li>
+            <li><span>🚫</span> Never bend your face or body directly over fireworks while lighting.</li>
+            <li><span>🚫</span> Never attempt to relight fireworks that did not go off initially (wait 15 mins and pour water).</li>
+            <li><span>🚫</span> Never store fireworks near kitchen stoves, diyas, or open heat sources.</li>
+            <li><span>🚫</span> Never throw ignited crackers towards animals, bystanders, or dry vehicles.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Business Contacts & Orders Section -->
+  <section class="contact-section" id="contacts">
+    <div class="container">
+      <div class="section-header-wrap">
+        <span class="section-tag">Contact Our Team</span>
+        <h2 class="section-title">Order Directly via <span>Call or WhatsApp</span></h2>
+        <p class="section-desc">Reach out directly to any of our coordinators for personalized orders, custom family packages, and wholesale bookings.</p>
+      </div>
+
+      <div class="contacts-grid">
+        <!-- Gowtham -->
+        <div class="contact-card">
+          <div class="contact-avatar">G</div>
+          <h3 class="contact-person-name">GOWTHAM</h3>
+          <p class="contact-person-role">Primary Orders & Dispatch Lead</p>
+          <div class="contact-person-phone">96404 99753</div>
+          <div class="contact-button-row">
+            <a href="tel:+919640499753" class="btn-contact-call" aria-label="Call Gowtham">📞 Call Now</a>
+            <a href="https://wa.me/919640499753?text=Hello%20Gowtham%20garu%2C%20I%20would%20like%20to%20place%20an%20order%20at%20Sri%20Ayyappa%20Crackers!" target="_blank" rel="noopener noreferrer" class="btn-contact-wa" aria-label="WhatsApp Gowtham">💬 WhatsApp</a>
+          </div>
+        </div>
+
+        <!-- Guruswami -->
+        <div class="contact-card">
+          <div class="contact-avatar">GS</div>
+          <h3 class="contact-person-name">GURUSWAMI</h3>
+          <p class="contact-person-role">Wholesale & Special Packs</p>
+          <div class="contact-person-phone">95730 47342</div>
+          <div class="contact-button-row">
+            <a href="tel:+919573047342" class="btn-contact-call" aria-label="Call Guruswami">📞 Call Now</a>
+            <a href="https://wa.me/919573047342?text=Hello%20Guruswami%20garu%2C%20I%20would%20like%20to%20enquire%20about%20crackers%20at%20Sri%20Ayyappa%20Crackers!" target="_blank" rel="noopener noreferrer" class="btn-contact-wa" aria-label="WhatsApp Guruswami">💬 WhatsApp</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QR Code & Digital Standee Section -->
+  <section class="qr-standee-section" id="qr-banner">
+    <div class="container">
+      <div class="qr-standee-card">
+        <div class="qr-standee-info">
+          <span class="section-tag">Direct Mobile Booking</span>
+          <h2 class="qr-standee-title">Scan QR to <span>Open Website Directly</span></h2>
+          <p class="qr-standee-desc">Scan this official QR code with any smartphone camera, Google Lens, or WhatsApp scanner to immediately open our festive fireworks store on <strong style="color: var(--gold-primary);">sriayyappacracker.vercel.app</strong>, add crackers to cart, and book with flat 20% festive discount!</p>
+          
+          <div class="qr-details-badges">
+            <span class="qr-badge">⚡ Instant 2026 Catalog</span>
+            <span class="qr-badge">🔥 Flat 20% Discount</span>
+            <span class="qr-badge">🚚 Fast Door Delivery</span>
+            <span class="qr-badge">🧾 WhatsApp Bill Receipt</span>
+          </div>
+
+          <div class="qr-download-actions">
+            <a href="sri_ayyappa_crackers_qr_banner.png" download="Sri_Ayyappa_Crackers_Festive_Standee.png" class="btn-qr-download primary">
+              📥 Download Printable Standee Banner (HD)
+            </a>
+            <a href="sri_ayyappa_crackers_qr_code.png" download="Sri_Ayyappa_Crackers_QR_Code.png" class="btn-qr-download secondary">
+              📱 Download Pure QR Code
+            </a>
+          </div>
+
+          <div class="standee-preview">
+            <img src="images/sri_ayyappa_crackers_qr_banner.png" alt="Preview of the printable Sri Ayyappa Crackers festive standee banner with QR code and helpline contacts" class="standee-preview-img" width="1200" height="1800" loading="lazy" decoding="async">
+            <span class="standee-preview-caption">Printable standee preview</span>
+          </div>
+        </div>
+
+        <div class="qr-standee-visual">
+          <div class="qr-frame-box">
+            <div class="qr-frame-top-tag">🪔 SRI AYYAPPA CRACKERS 🪔</div>
+            <img src="images/sri_ayyappa_crackers_qr_code.png" alt="Sri Ayyappa Crackers Official Website QR Code that opens the store when scanned" class="qr-preview-img" width="645" height="645" loading="lazy" decoding="async">
+            <div class="qr-url-pill">sriayyappacracker.vercel.app</div>
+            <span class="qr-scan-hint">📷 Point Camera to Open Website</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer Section -->
+  <footer class="main-footer">
+    <div class="container">
+      <div class="footer-top-grid">
+        <div>
+          <h3 class="footer-brand-title">Sri Ayyappa <span>Crackers</span></h3>
+          <p class="footer-desc">Your trusted provider of 100% genuine Sivakasi fireworks and crackers. Bringing bright smiles, grand celebrations, and supreme safety to your festival of lights.</p>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">Quick Links</h4>
+          <ul class="footer-links-list">
+            <li class="footer-link-item"><a href="#hero">Home</a></li>
+            <li class="footer-link-item"><a href="#catalog">Full Collection</a></li>
+            <li class="footer-link-item"><a href="#special-promo">Mega Family Pack</a></li>
+            <li class="footer-link-item"><a href="#safety">Safety Instructions</a></li>
+            <li class="footer-link-item"><a href="#contacts">Helpline Contacts</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">Order Helpline & Support</h4>
+          <p class="footer-contact-line">📞 Gowtham: <a href="tel:+919640499753" aria-label="Call Gowtham at +91 96404 99753">+91 96404 99753</a></p>
+          <p class="footer-contact-line">📞 Guruswami: <a href="tel:+919573047342" aria-label="Call Guruswami at +91 95730 47342">+91 95730 47342</a></p>
+          <p class="footer-hours">Opening Hours: 8:00 AM – 10:30 PM (All 7 Days during festival season)</p>
+        </div>
+      </div>
+
+      <div class="footer-bottom-bar">
+        <p>© 2026 Sri Ayyappa Crackers. All Rights Reserved. Light Up Your Celebrations Safely.</p>
+        <p>Crafted with 🪔 & Modern Scroll Animations</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating Cart Drawer Overlay & Drawer -->
+  <div class="cart-drawer-overlay" id="cartOverlay" data-overlay-for="cart"></div>
+  <aside class="cart-drawer" id="cartDrawer" role="dialog" aria-modal="true" aria-label="Shopping cart" aria-hidden="true">
+    <div class="cart-header">
+      <h3 class="cart-header-title">🛒 Your Diwali Cart</h3>
+      <button class="cart-close-btn" id="cartCloseBtn" aria-label="Close Cart">✕</button>
+    </div>
+
+    <div class="cart-items-container" id="cartItemsContainer">
+      <!-- Injected dynamically -->
+    </div>
+
+    <div class="cart-footer">
+      <div class="cart-summary-line">
+        <span>Catalog Subtotal:</span>
+        <span id="cartSubtotal">₹0</span>
+      </div>
+      <div class="cart-summary-line" style="color: #25d366;">
+        <span>Festive Savings (20% OFF):</span>
+        <span id="cartDiscount">₹0</span>
+      </div>
+      <div class="cart-summary-line total">
+        <span>Total Payable:</span>
+        <span id="cartGrandTotal">₹0</span>
+      </div>
+
+      <!-- Recipient Coordinator Picker -->
+      <div class="cart-recipient-picker">
+        <label class="cart-recipient-label" for="cartRecipientSelect">Send WhatsApp Order To:</label>
+        <select id="cartRecipientSelect" class="cart-recipient-select" aria-label="Order Coordinator">
+          <!-- Populated dynamically -->
+        </select>
+      </div>
+
+      <div class="cart-address-wrapper">
+        <label class="cart-recipient-label" for="cartCustomerName">Customer Name (optional)</label>
+        <input type="text" id="cartCustomerName" class="cart-user-input" placeholder="👤 Customer Name (e.g. Ramesh Kumar)">
+        <label class="cart-recipient-label" for="cartCustomerAddress">Delivery Address (required)</label>
+        <textarea id="cartCustomerAddress" class="cart-address-input" placeholder="📍 Delivery Address / Location (Street, Landmark, Town/City)..." rows="2" required aria-required="true"></textarea>
+      </div>
+
+      <button class="btn-cart-whatsapp-checkout" id="btnCartCheckout">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+        <span>🧾 Generate Bill Receipt & Order</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Bill Receipt Preview & Download Modal -->
+  <div class="bill-modal-overlay" id="billModalOverlay" data-overlay-for="bill"></div>
+  <div class="bill-modal" id="billModal" role="dialog" aria-modal="true" aria-label="Official order bill receipt" aria-hidden="true">
+    <div class="bill-modal-header">
+      <div class="bill-modal-title">
+        <span>🧾</span> Official Order Bill Receipt
+      </div>
+      <button class="bill-modal-close" id="billModalCloseBtn" aria-label="Close Bill Modal">✕</button>
+    </div>
+    
+    <div class="bill-modal-body">
+      <div class="bill-receipt-card" id="billReceiptCard">
+        <!-- Rendered Bill Canvas & Image -->
+        <img id="billPreviewImage" class="bill-preview-img" alt="Sri Ayyappa Crackers Bill Receipt">
+        <canvas id="billCanvas" style="display: none;"></canvas>
+      </div>
+      
+      <div class="bill-clipboard-alert">
+        <span class="clipboard-icon">💡</span>
+        <div>
+          <strong>Sending Image on WhatsApp:</strong>
+          <span>The receipt image is automatically copied to your clipboard & downloaded. When WhatsApp opens, simply press <strong>Ctrl + V</strong> (or Paste) to attach and send the bill image!</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="bill-modal-actions">
+      <button class="btn-bill-buy-now" id="btnSendWhatsAppWithBill">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+        <span>🛒 Buy on WhatsApp (Direct Order)</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Floating Cart Action Button (FAB) -->
+  <button class="floating-cart-fab" data-action="open-cart" title="Open Diwali Cart" aria-label="Open Diwali cart">
+    🛒
+    <span class="fab-badge" id="fabCartCount">0</span>
+  </button>
+
+  <!-- Product Detail Modal (Tap to Zoom) -->
+  <div class="detail-modal-overlay" id="detailModalOverlay" data-overlay-for="detail"></div>
+  <div class="detail-modal" id="detailModal" role="dialog" aria-modal="true" aria-label="Cracker product details" aria-hidden="true">
+    <button class="detail-modal-close" id="detailModalCloseBtn" aria-label="Close product details">✕</button>
+    <div class="detail-modal-scroll" id="detailModalBody">
+      <!-- Injected dynamically via js/app.js -->
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast-notice" id="toastNotice" role="status" aria-live="polite">
+    <span aria-hidden="true">✨</span>
+    <span id="toastMessage">Product added to cart!</span>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/products.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
