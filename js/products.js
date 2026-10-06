@@ -37,7 +37,7 @@ const PRODUCTS = [
     pieces: '10 pieces',
     category: 'sparklers',
     price: 20,
-    image: 'images/placeholder-7cm-electrical-sparklers.jpg',
+    image: 'images/7cm-electrical-sparklers.jpg',
     description: 'Battery operated electric sparklers with a steady bright glow, safe for indoor use.',
     rating: 4.5,
     needsPhoto: true
@@ -49,7 +49,7 @@ const PRODUCTS = [
     pieces: '10 pieces',
     category: 'sparklers',
     price: 70,
-    image: 'images/kakarapulu-15cm-colour-greenred-10-pieces.jpg',
+    image: 'images/15cm-red-colour-sparklers.jpg',
     description: 'Vibrant dual-color green and red glittering sparks with long burning duration.',
     rating: 4.9,
     badge: 'Popular'
@@ -61,7 +61,7 @@ const PRODUCTS = [
     pieces: '10 pieces',
     category: 'sparklers',
     price: 70,
-    image: 'images/kakarapulu-15cm-colour-greenred-10-pieces.jpg',
+    image: 'images/15cm-green-colour-sparklers.jpg',
     description: 'Vibrant dual-color green and red glittering sparks with long burning duration.',
     rating: 4.9,
     badge: 'Popular'
@@ -89,7 +89,7 @@ const PRODUCTS = [
     price: 300,
     originalPrice: 375,
     discount: '20% OFF',
-    image: 'images/chichubudlu-big-10-pieces.jpg',
+    image: 'images/chichubudi-big-box.jpg',
     description: 'High-height majestic flower fountain with multi-layered shower of sparks.',
     rating: 5.0,
     badge: 'Grand Flower'
@@ -103,7 +103,7 @@ const PRODUCTS = [
     price: 250,
     originalPrice: 313,
     discount: '20% OFF',
-    image: 'images/placeholder-chichubudi-medium-box.jpg',
+    image: 'images/chichubudi-medium-box.jpg',
     description: 'Medium size chichubudlu flower pots that spin bright colour wheels on the ground.',
     rating: 4.5,
     needsPhoto: true
@@ -117,7 +117,7 @@ const PRODUCTS = [
     price: 200,
     originalPrice: 250,
     discount: '20% OFF',
-    image: 'images/chichubudlu-small10-pieces.jpg',
+    image: 'images/chichubudi-small-box.jpg',
     description: 'Beautiful golden spray fountain that illuminates your courtyard festive style.',
     rating: 4.9,
     badge: 'Top Pick'
@@ -131,7 +131,7 @@ const PRODUCTS = [
     price: 250,
     originalPrice: 313,
     discount: '20% OFF',
-    image: 'images/bhuchakaram-big.jpg',
+    image: 'images/bhuchakralu-big-box.jpg',
     description: 'High-speed spinning wheel producing a huge ring of dynamic sparks.',
     rating: 4.9,
     badge: 'Popular'
@@ -161,7 +161,7 @@ const PRODUCTS = [
     price: 80,
     originalPrice: 100,
     discount: '20% OFF',
-    image: 'images/chitapatalu-10-pieces.jpg',
+    image: 'images/chitpataluu.jpg',
     description: 'Playful crackling sounds with golden micro-sparks on the ground.',
     rating: 4.6
   },
@@ -174,7 +174,7 @@ const PRODUCTS = [
     price: 40,
     originalPrice: 50,
     discount: '20% OFF',
-    image: 'images/vennamuddalu-10-pieces.jpg',
+    image: 'images/venamudal-u.jpg',
     description: 'Smooth glowing ground crackers with soft sound and warm light.',
     rating: 4.5
   },
@@ -197,7 +197,7 @@ const PRODUCTS = [
     pieces: '12 pieces',
     category: 'twinkling',
     price: 20,
-    image: 'images/pamubillalu-small-10-pieces.jpg',
+    image: 'images/pamubilalu.jpg',
     description: 'Pocket-friendly black snake pellets for fun Diwali games.',
     rating: 4.4
   },
@@ -249,7 +249,7 @@ const PRODUCTS = [
     price: 130,
     originalPrice: 163,
     discount: '20% OFF',
-    image: 'images/pencil.jpg',
+    image: 'images/pencils.jpg',
     description: 'Handheld pencil sticks producing continuous bursts of bright colorful stars.',
     rating: 4.8,
     badge: 'Kids Favourite'
@@ -264,7 +264,7 @@ const PRODUCTS = [
     pieces: '20 pieces',
     category: 'sound',
     price: 30,
-    image: 'images/placeholder-smoke-bombs.jpg',
+    image: 'images/smoke-bombs.jpg',
     description: 'Smoke bombs that release thick coloured smoke columns for dramatic effect.',
     rating: 4.5,
     needsPhoto: true
@@ -276,7 +276,7 @@ const PRODUCTS = [
     pieces: '50 pieces',
     category: 'sound',
     price: 50,
-    image: 'images/sematapakayalu-50-pieces.jpg',
+    image: 'images/placeholder-sematapakayalu-50-pieces.jpg',
     description: 'Value pack of fifty ground flower pots with bright colours and steady burn.',
     rating: 4.5,
     needsPhoto: true
@@ -299,7 +299,7 @@ const PRODUCTS = [
     pieces: '5 pieces',
     category: 'sound',
     price: 50,
-    image: 'images/laxmi-big-5-pieces.jpg',
+    image: 'images/lakshmi-big.jpg',
     description: 'Heavy explosive sound with traditional green foil Lakshmi branding.',
     rating: 4.9,
     badge: 'Loud Blast'
@@ -324,7 +324,7 @@ const PRODUCTS = [
     price: 450,
     originalPrice: 563,
     discount: '20% OFF',
-    image: 'images/vinkaya-big.jpg',
+    image: 'images/vankayalu-deluxe.jpg',
     description: 'Extremely high decibel sound cracker in legendary brinjal bomb design.',
     rating: 5.0,
     badge: 'Super Thunder'
@@ -351,7 +351,7 @@ const PRODUCTS = [
     price: 200,
     originalPrice: 250,
     discount: '20% OFF',
-    image: 'images/placeholder-vankayalu-small.jpg',
+    image: 'images/vankayalu-small.jpg',
     description: 'Compact vankayalu bombs with strong sound and bright colour burst.',
     rating: 4.5,
     needsPhoto: true
@@ -365,7 +365,7 @@ const PRODUCTS = [
     price: 200,
     originalPrice: 250,
     discount: '20% OFF',
-    image: 'images/placeholder-flower-outs.jpg',
+    image: 'images/flower-outs.jpg',
     description: 'Five piece flower out pack producing big colourful flowers with heavy sound.',
     rating: 4.5,
     needsPhoto: true
@@ -377,7 +377,7 @@ const PRODUCTS = [
     pieces: '1 packet',
     category: 'sound',
     price: 30,
-    image: 'images/28-wala-1-packet.jpg',
+    image: 'images/wala.jpg',
     description: 'Short rhythm sequence of 28 crisp celebratory pops.',
     rating: 4.6
   },
@@ -403,7 +403,7 @@ const PRODUCTS = [
     price: 150,
     originalPrice: 188,
     discount: '20% OFF',
-    image: 'images/placeholder-200-wala.jpg',
+    image: 'images/200-wala.jpg',
     description: 'Two hundred wala long garland string for a continuous crackling show.',
     rating: 4.5,
     needsPhoto: true
@@ -417,7 +417,7 @@ const PRODUCTS = [
     price: 350,
     originalPrice: 438,
     discount: '20% OFF',
-    image: 'images/1000-wala.jpg',
+    image: 'images/1000-wala-1k.jpg',
     description: 'Massive 1000 cracker garland for grand inaugurations, poojas & Diwali night.',
     rating: 5.0,
     badge: 'Grand Sound'
@@ -461,7 +461,7 @@ const PRODUCTS = [
     price: 150,
     originalPrice: 188,
     discount: '20% OFF',
-    image: 'images/rockets.jpg',
+    image: 'images/rockets-small.jpg',
     description: 'High flying whistling rockets bursting into sparkling multi-colored umbrellas.',
     rating: 4.9,
     badge: 'High Flyer'
@@ -475,7 +475,7 @@ const PRODUCTS = [
     price: 80,
     originalPrice: 100,
     discount: '20% OFF',
-    image: 'images/1shot.jpg',
+    image: 'images/1-shot.jpg',
     description: 'Launches high into the sky and detonates with a thunderous golden burst.',
     rating: 4.8
   },
@@ -531,7 +531,7 @@ const PRODUCTS = [
     price: 2000,
     originalPrice: 2500,
     discount: '20% OFF',
-    image: 'images/family-pack.jpg',
+    image: 'images/family-pack-deluxe.jpg',
     description: 'Complete assorted family pack with sparklers, ground items, bombs, rockets and wala strings at a special bulk price.',
     rating: 4.9,
     badge: 'Best Seller'
