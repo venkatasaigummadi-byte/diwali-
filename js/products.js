@@ -270,18 +270,6 @@ const PRODUCTS = [
     needsPhoto: true
   },
   {
-    id: 'sematapakayalu-50-pieces',
-    name: 'Sematapakayalu 50 Pieces',
-    teluguName: 'సీమటపాకాయలు 50 మీస',
-    pieces: '50 pieces',
-    category: 'sound',
-    price: 50,
-    image: 'images/placeholder-sematapakayalu-50-pieces.jpg',
-    description: 'Value pack of fifty ground flower pots with bright colours and steady burn.',
-    rating: 4.5,
-    needsPhoto: true
-  },
-  {
     id: 'sematapakayalu-100-pieces',
     name: 'Sematapakayalu 100 Pieces',
     teluguName: 'సీమటపాకాయలు 100 మీస',
