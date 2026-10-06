@@ -73,7 +73,7 @@ const PRODUCTS = [
     pieces: '5 pieces',
     category: 'sparklers',
     price: 70,
-    image: 'images/kakarapulu-30cm-colour-5-pieces.jpg',
+    image: 'images/30cm-electrical-sparklers.jpg',
     description: 'Long electric sparklers giving a bright festive glow for a longer duration.',
     rating: 4.7
   },
@@ -276,7 +276,7 @@ const PRODUCTS = [
     pieces: '50 pieces',
     category: 'sound',
     price: 50,
-    image: 'images/placeholder-sematapakayalu-50-pieces.jpg',
+    image: 'images/sematapakayalu-50-pieces.jpg',
     description: 'Value pack of fifty ground flower pots with bright colours and steady burn.',
     rating: 4.5,
     needsPhoto: true
