@@ -278,6 +278,7 @@ function filterAndRenderProducts() {
 
   // Trigger scroll reveal observer
   observeCards();
+  renderWishlistButtons();
 }
 
 function resetFilters() {
@@ -1429,6 +1430,9 @@ document.addEventListener('DOMContentLoaded', () => {
   initHeroSlider();
   updateSoundButton();
   syncHeaderHeightVar();
+  startCountdown();
+  renderWishlistButtons();
+  initRevealAnimations();
 
   // Mobile Navigation Handler
   if (navToggleBtn) {
@@ -1531,3 +1535,196 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+// ==========================================================================
+// Category Cards + Footer Category Shortcuts
+// ==========================================================================
+function getHeaderOffset() {
+  const h = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-h'), 10);
+  return (isNaN(h) ? 96 : h) + 12;
+}
+
+function scrollToCatalog() {
+  const target = document.getElementById('catalog');
+  if (!target) return;
+  const top = target.getBoundingClientRect().top + window.pageYOffset - getHeaderOffset();
+  window.scrollTo({ top, behavior: reducedMotion ? 'auto' : 'smooth' });
+}
+
+function applyCategoryFilter(catId) {
+  currentCategory = catId;
+  searchQuery = '';
+  if (searchInput) searchInput.value = '';
+  if (searchClearBtn) searchClearBtn.style.display = 'none';
+  renderCategoryPills();
+  filterAndRenderProducts();
+}
+
+document.querySelectorAll('.category-card[data-category]').forEach(card => {
+  card.addEventListener('click', () => {
+    const cat = card.getAttribute('data-category');
+    if (!cat) return;
+    applyCategoryFilter(cat);
+    playCrackerSound(0.8);
+    showToast(`Showing ${CATEGORIES.find(c => c.id === cat)?.name || 'products'} ✨`);
+    scrollToCatalog();
+  });
+});
+
+document.querySelectorAll('[data-footer-cat]').forEach(link => {
+  link.addEventListener('click', () => {
+    const cat = link.getAttribute('data-footer-cat');
+    if (!cat) return;
+    applyCategoryFilter(cat);
+    scrollToCatalog();
+  });
+});
+
+// ==========================================================================
+// Diwali Countdown (Lakshmi Puja — 8 November 2026)
+// ==========================================================================
+const DIWALI_TARGET = new Date('2026-11-08T18:30:00+05:30').getTime();
+let countdownTimer = null;
+
+function updateCountdown() {
+  const elDays = document.getElementById('cdDays');
+  const elHours = document.getElementById('cdHours');
+  const elMins = document.getElementById('cdMins');
+  const elSecs = document.getElementById('cdSecs');
+  if (!elDays || !elHours || !elMins || !elSecs) return;
+
+  const diff = DIWALI_TARGET - Date.now();
+  if (diff <= 0) {
+    elDays.textContent = '00';
+    elHours.textContent = '00';
+    elMins.textContent = '00';
+    elSecs.textContent = '00';
+    stopCountdown();
+    const caption = document.querySelector('.countdown-caption');
+    if (caption) caption.innerHTML = '<strong>Happy Diwali! 🪔</strong> Thank you for celebrating with Sri Ayyappa Crackers.';
+    return;
+  }
+
+  const days = Math.floor(diff / 86400000);
+  const hours = Math.floor((diff % 86400000) / 3600000);
+  const mins = Math.floor((diff % 3600000) / 60000);
+  const secs = Math.floor((diff % 60000) / 1000);
+
+  elDays.textContent = String(days).padStart(2, '0');
+  elHours.textContent = String(hours).padStart(2, '0');
+  elMins.textContent = String(mins).padStart(2, '0');
+  elSecs.textContent = String(secs).padStart(2, '0');
+}
+
+function startCountdown() {
+  if (countdownTimer) return;
+  updateCountdown();
+  countdownTimer = setInterval(updateCountdown, 1000);
+}
+
+function stopCountdown() {
+  if (!countdownTimer) return;
+  clearInterval(countdownTimer);
+  countdownTimer = null;
+}
+
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) stopCountdown();
+  else startCountdown();
+});
+
+// ==========================================================================
+// Scroll Reveal for the new sections (armed only when JS is alive)
+// ==========================================================================
+let revealObserver = null;
+
+function initRevealAnimations() {
+  const items = document.querySelectorAll('.reveal:not(.is-inview)');
+  if (!items.length) return;
+
+  if (!('IntersectionObserver' in window) || reducedMotion) {
+    items.forEach(el => el.classList.add('is-inview'));
+    return;
+  }
+
+  if (!revealObserver) {
+    revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-inview');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { root: null, rootMargin: '0px 0px -40px 0px', threshold: 0.08 });
+  }
+
+  items.forEach((el, i) => {
+    el.classList.add('is-armed');
+    el.style.transitionDelay = `${(i % 3) * 70}ms`;
+    revealObserver.observe(el);
+  });
+}
+
+// ==========================================================================
+// Wishlist Toggle
+// ==========================================================================
+const WISHLIST_KEY = 'ayyappa_wishlist';
+let wishlist = [];
+
+try {
+  const saved = JSON.parse(localStorage.getItem(WISHLIST_KEY) || '[]');
+  if (Array.isArray(saved)) wishlist = saved;
+} catch (err) {
+  wishlist = [];
+}
+
+function saveWishlist() {
+  try {
+    localStorage.setItem(WISHLIST_KEY, JSON.stringify(wishlist));
+  } catch (err) {}
+}
+
+function renderWishlistButtons() {
+  document.querySelectorAll('.product-card').forEach(card => {
+    const id = card.getAttribute('data-id');
+    const box = card.querySelector('.product-image-box');
+    if (!id || !box) return;
+    if (box.querySelector('.wishlist-btn')) return;
+
+    const isWished = wishlist.includes(id);
+    const badge = document.createElement('span');
+    badge.className = 'badge-wishlist';
+    badge.textContent = 'SAVED';
+    badge.hidden = !isWished;
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = `wishlist-btn${isWished ? ' active' : ''}`;
+    btn.setAttribute('aria-label', isWished ? 'Remove from wishlist' : 'Add to wishlist');
+    btn.setAttribute('aria-pressed', isWished ? 'true' : 'false');
+    btn.textContent = isWished ? '❤️' : '🤍';
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const active = wishlist.includes(id);
+      if (active) {
+        wishlist = wishlist.filter(x => x !== id);
+        btn.classList.remove('active');
+        btn.textContent = '🤍';
+        btn.setAttribute('aria-pressed', 'false');
+        btn.setAttribute('aria-label', 'Add to wishlist');
+        showToast('Removed from your wishlist');
+      } else {
+        wishlist.push(id);
+        btn.classList.add('active');
+        btn.textContent = '❤️';
+        btn.setAttribute('aria-pressed', 'true');
+        btn.setAttribute('aria-label', 'Remove from wishlist');
+        showToast(`Saved to wishlist ❤️ (${wishlist.length} item${wishlist.length === 1 ? '' : 's'})`);
+        playCrackerSound(0.7);
+      }
+      badge.hidden = !wishlist.includes(id);
+      saveWishlist();
+    });
+    box.appendChild(badge);
+    box.appendChild(btn);
+  });
+}
