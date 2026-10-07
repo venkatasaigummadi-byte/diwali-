@@ -145,7 +145,7 @@ const PRODUCTS = [
     price: 200,
     originalPrice: 250,
     discount: '20% OFF',
-    image: 'images/bhoo-chakram.jpg',
+    image: 'images/bhuchakralu-small.jpg',
     description: 'Classic ground chakkar with smooth continuous spin and glittering circle.',
     rating: 4.7
   },
@@ -326,7 +326,7 @@ const PRODUCTS = [
     price: 300,
     originalPrice: 375,
     discount: '20% OFF',
-    image: 'images/vankaya-medium-10-pieces.jpg',
+    image: 'images/vankayalu-big.jpg',
     description: 'Solid resounding bass blast loved by cracker connoisseurs.',
     rating: 4.8
   },
@@ -419,7 +419,7 @@ const PRODUCTS = [
     price: 600,
     originalPrice: 750,
     discount: '20% OFF',
-    image: 'images/2000-wala.jpg',
+    image: 'images/2000-wala-2k.jpg',
     description: 'Unstoppable 2000-shot garland filling the festival night with booming beats.',
     rating: 5.0,
     badge: 'Jumbo Garland'
