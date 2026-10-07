@@ -210,7 +210,7 @@ const PRODUCTS = [
     price: 130,
     originalPrice: 163,
     discount: '20% OFF',
-    image: 'images/placeholder-threads-tadulu-big.jpg',
+    image: 'images/threads-tadulu-big.png',
     description: 'Long sparkling threads that give a continuous crackling shower of sparks.',
     rating: 4.5,
     needsPhoto: true
@@ -236,7 +236,7 @@ const PRODUCTS = [
     pieces: '20 pieces',
     category: 'twinkling',
     price: 10,
-    image: 'images/seema-tapakai.jpg',
+    image: 'images/pop-pos-nelatapakayalu.png',
     description: 'Classic pop-pop ground snappers safe and enjoyable for children.',
     rating: 4.7
   },
@@ -378,7 +378,7 @@ const PRODUCTS = [
     price: 80,
     originalPrice: 100,
     discount: '20% OFF',
-    image: 'images/100-wala.jpg',
+    image: 'images/100-wala.png',
     description: '100 continuous rapid red firecracker string bursting with vibrant energy.',
     rating: 4.8
   },
@@ -419,7 +419,7 @@ const PRODUCTS = [
     price: 600,
     originalPrice: 750,
     discount: '20% OFF',
-    image: 'images/2000-wala-2k.jpg',
+    image: 'images/2000-wala-2k.png',
     description: 'Unstoppable 2000-shot garland filling the festival night with booming beats.',
     rating: 5.0,
     badge: 'Jumbo Garland'
