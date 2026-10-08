@@ -1400,6 +1400,13 @@ function openProductDetail(product) {
         ${discountAmount > 0 ? `<span class="detail-chip highlight">💰 Save ₹${discountAmount}</span>` : ''}
       </div>
       <p class="detail-description">${product.description || 'Premium quality cracker from Sri Ayyappa Crackers — fresh stock, safe packaging, delivered with care.'}</p>
+      ${product.contents ? `
+      <div class="detail-contents">
+        <h4 class="detail-contents-title">🎁 What's Inside — ${product.contents.length} items</h4>
+        <ul class="detail-contents-list">
+          ${product.contents.map(c => `<li><span class="dc-name">${c.name}</span><span class="dc-qty">×${c.qty}</span></li>`).join('')}
+        </ul>
+      </div>` : ''}
       <hr class="detail-divider">
       <div class="detail-price-row">
         <span class="detail-price">₹${product.price}</span>

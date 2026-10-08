@@ -1406,10 +1406,18 @@ body {
 
 .promo-items-list {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.6rem;
+  grid-template-columns: repeat(auto-fill, minmax(195px, 1fr));
+  gap: 0.5rem;
   margin-bottom: 1.5rem;
+  max-height: 330px;
+  overflow-y: auto;
+  padding-right: 4px;
+  align-content: start;
 }
+
+.promo-items-list::-webkit-scrollbar { width: 6px; }
+.promo-items-list::-webkit-scrollbar-thumb { background: rgba(255, 215, 0, 0.35); border-radius: 4px; }
+.promo-items-list::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.05); }
 
 .promo-item-pill {
   background: rgba(255, 255, 255, 0.08);
@@ -2719,6 +2727,51 @@ body {
   height: 1px;
   background: rgba(255, 255, 255, 0.1);
   border: none;
+}
+
+.detail-contents {
+  margin-top: 1rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  border-radius: var(--radius-sm);
+  padding: 0.9rem 1rem;
+}
+
+.detail-contents-title {
+  margin: 0 0 0.6rem;
+  font-size: 0.9rem;
+  color: var(--gold-primary);
+  font-weight: 700;
+}
+
+.detail-contents-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 220px;
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 0.35rem 0.8rem;
+}
+
+.detail-contents-list::-webkit-scrollbar { width: 6px; }
+.detail-contents-list::-webkit-scrollbar-thumb { background: rgba(255, 215, 0, 0.35); border-radius: 4px; }
+
+.detail-contents-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
+  padding: 0.15rem 0;
+}
+
+.detail-contents-list .dc-qty {
+  color: var(--gold-primary);
+  font-weight: 700;
+  white-space: nowrap;
 }
 
 .detail-price-row {
