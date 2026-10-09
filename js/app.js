@@ -783,8 +783,97 @@ async function copyBillImageToClipboard() {
   }
 }
 
+// ==========================================================================
+// Bill Receipt Image Hosting - a public link is added to the WhatsApp text
+// ==========================================================================
+// POST a multipart form with a hard timeout. Resolves the Response or null.
+async function postForm(url, formData, timeoutMs = 8000) {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    const res = await fetch(url, {
+      method: 'POST',
+      body: formData,
+      signal: controller.signal
+    });
+    return res && res.ok ? res : null;
+  } catch (e) {
+    console.warn('Upload failed:', url, e);
+    return null;
+  } finally {
+    clearTimeout(timeoutId);
+  }
+}
+
+// Provider A: tmpfiles.org - CORS enabled, link stays alive for 48 hours
+async function uploadToTmpfiles(blob) {
+  const formData = new FormData();
+  formData.append('file', blob, 'Sri_Ayyappa_Crackers_Bill.png');
+  formData.append('expire', '172800');
+  const res = await postForm('https://tmpfiles.org/api/v1/upload', formData);
+  if (!res) return null;
+  try {
+    const data = await res.json();
+    const url = data && data.data && data.data.url;
+    if (typeof url !== 'string' || url.indexOf('https://tmpfiles.org/') !== 0) return null;
+    // page link -> direct file link
+    return url.replace('https://tmpfiles.org/', 'https://tmpfiles.org/dl/');
+  } catch (e) {
+    return null;
+  }
+}
+
+// Provider B: gofile.io - CORS enabled, public download page for the receipt
+async function uploadToGofile(blob) {
+  const formData = new FormData();
+  formData.append('file', blob, 'Sri_Ayyappa_Crackers_Bill.png');
+  const res = await postForm('https://upload.gofile.io/uploadfile', formData);
+  if (!res) return null;
+  try {
+    const data = await res.json();
+    const url = data && data.data && data.data.downloadPage;
+    return typeof url === 'string' && url.indexOf('https://gofile.io/') === 0 ? url : null;
+  } catch (e) {
+    return null;
+  }
+}
+
+// Resolves with the first value that is truthy, or null when every promise fails
+function firstUseful(promises) {
+  return new Promise((resolve) => {
+    let remaining = promises.length;
+    if (!remaining) return resolve(null);
+    promises.forEach((promise) => {
+      Promise.resolve(promise)
+        .then((value) => {
+          if (value) return resolve(value);
+          remaining -= 1;
+          if (!remaining) resolve(null);
+        })
+        .catch(() => {
+          remaining -= 1;
+          if (!remaining) resolve(null);
+        });
+    });
+  });
+}
+
+// Every host runs at the same time - the first working public link wins.
+async function uploadBillImage(canvas) {
+  const blob = await canvasToBlob(canvas);
+  if (!blob) return null;
+
+  return firstUseful(
+    [uploadToTmpfiles, uploadToGofile].map((provider) =>
+      Promise.resolve()
+        .then(() => provider(blob))
+        .catch(() => null)
+    )
+  );
+}
+
 // Send Order via WhatsApp - opens WhatsApp straight away with the full bill text.
-function sendWhatsAppBillOrder() {
+async function sendWhatsAppBillOrder() {
   if (!lastGeneratedBill) return;
 
   const bill = lastGeneratedBill;
@@ -812,7 +901,22 @@ ${itemsList}
 --------------------------------------------
 Please confirm my order and share payment modes & delivery dispatch. Thank you! 🙏`;
 
-  const waUrl = `https://wa.me/91${targetPhone}?text=${encodeURIComponent(message)}`;
+  // Receipt image link: it is uploaded in the background as soon as the bill is
+  // generated, so most of the time it is already waiting here.
+  let imageUrl = bill.imageUrl || null;
+  if (!imageUrl && bill.uploadPromise) {
+    imageUrl = await Promise.race([
+      bill.uploadPromise,
+      new Promise((resolve) => setTimeout(() => resolve(null), 3000))
+    ]);
+    bill.imageUrl = imageUrl || null;
+    bill.uploadDone = true;
+  }
+
+  const finalMessage = imageUrl
+    ? `${message}\n🧾 *Receipt Image (view/download):*\n${imageUrl}`
+    : message;
+  const waUrl = `https://wa.me/91${targetPhone}?text=${encodeURIComponent(finalMessage)}`;
 
   playCrackerSound(2.0);
   triggerFireworksBurst(window.innerWidth / 2, window.innerHeight / 2);
@@ -825,16 +929,20 @@ Please confirm my order and share payment modes & delivery dispatch. Thank you! 
   } catch (e) {}
   if (!opened) window.location.href = waUrl;
 
-  showToast('✅ Opening WhatsApp with your order bill...');
-
-  // Keep the receipt image on the clipboard so it can be pasted into the chat.
-  copyBillImageToClipboard().then((copied) => {
-    showToast(
-      copied
-        ? '📋 Bill image copied — press Ctrl + V in WhatsApp to attach it'
-        : '🧾 Use "Download Bill Image" to attach the receipt in WhatsApp'
-    );
-  });
+  if (imageUrl) {
+    showToast('✅ WhatsApp opened — receipt image link added to your message');
+    copyBillImageToClipboard();
+  } else {
+    // No public link available: keep the receipt on the clipboard instead.
+    showToast('✅ Opening WhatsApp with your order bill...');
+    copyBillImageToClipboard().then((copied) => {
+      showToast(
+        copied
+          ? '📋 Bill image copied — press Ctrl + V in WhatsApp to attach it'
+          : '🧾 Use "Download Bill Image" to attach the receipt in WhatsApp'
+      );
+    });
+  }
 }
 
 // Checkout Entire Cart: Validate address, generate Bill Receipt Image, and open modal
@@ -864,6 +972,22 @@ function checkoutCartWhatsApp() {
   // Generate the Bill Image
   const bill = generateBillReceipt(customerName, customerAddress, targetPhone);
   if (!bill) return;
+
+  // Upload the receipt right away in the background, so the WhatsApp message
+  // can already carry a public image link when the customer presses Buy.
+  const billCanvas = document.getElementById('billCanvas');
+  bill.imageUrl = null;
+  bill.uploadDone = false;
+  bill.uploadPromise = uploadBillImage(billCanvas)
+    .then((url) => {
+      bill.imageUrl = url;
+      bill.uploadDone = true;
+      return url;
+    })
+    .catch(() => {
+      bill.uploadDone = true;
+      return null;
+    });
 
   // Close cart drawer & open Bill Receipt Modal
   closeCart();
