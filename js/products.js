@@ -511,16 +511,16 @@ const PRODUCTS = [
   // Family Packs
   // ------------------------------------------------------------------
   {
-    id: 'family-pack-deluxe',
-    name: 'Mega Family Pack (Diwali Dhamaka)',
-    teluguName: 'శ్రీ అయ్యప్ప మెగా ఫ్యామిలీ ప్యాక్',
+    id: 'family-pack-grand',
+    name: 'Grand Family Pack (Festive Offer)',
+    teluguName: 'శ్రీ అయ్యప్ప గ్రాండ్ ఫ్యామిలీ ప్యాక్',
     pieces: '30 Items',
     category: 'special-packs',
     price: 3199,
     originalPrice: 3999,
     discount: '20% OFF',
     image: 'images/family-pack-deluxe.jpg',
-    description: 'Curated Diwali dhamaka pack with sparklers, flower pots, chakkars, shots, sound crackers and rockets — every item listed below with its pack quantity.',
+    description: 'Curated festive family treasure box with sparklers, flower pots, chakkars, shots, sound crackers and rockets — every item listed below with its pack quantity.',
     contents: [
       { name: '7cm Sparklers', qty: 2 },
       { name: '7cm Electrical Sparklers', qty: 2 },

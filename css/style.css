@@ -2296,6 +2296,9 @@ body {
   padding: 1.2rem 1.5rem;
   background: #121028;
   border-top: 1px solid var(--border-gold);
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
 }
 
 .bill-clipboard-alert {
@@ -2320,6 +2323,28 @@ body {
 .clipboard-icon {
   font-size: 1.4rem;
   line-height: 1;
+}
+
+.btn-bill-download {
+  width: 100%;
+  background: transparent;
+  border: 1.5px solid var(--border-gold);
+  color: var(--gold-primary, #ffd700);
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-full);
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  transition: var(--transition-fast);
+}
+
+.btn-bill-download:hover {
+  background: rgba(255, 215, 0, 0.12);
+  transform: translateY(-2px);
 }
 
 .btn-bill-buy-now {

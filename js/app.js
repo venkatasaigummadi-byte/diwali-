@@ -783,141 +783,12 @@ async function copyBillImageToClipboard() {
   }
 }
 
-// POST a multipart form with a hard timeout. Resolves the Response or null.
-async function postForm(url, formData, timeoutMs = 12000) {
-  const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
-  try {
-    const res = await fetch(url, {
-      method: 'POST',
-      body: formData,
-      signal: controller.signal
-    });
-    return res && res.ok ? res : null;
-  } catch (e) {
-    console.warn('Upload failed:', url, e);
-    return null;
-  } finally {
-    clearTimeout(timeoutId);
-  }
-}
-
-// Provider A: litterbox.catbox.moe - gives a direct image link (files.catbox.moe) valid 72h
-async function uploadToLitterbox(blob) {
-  const formData = new FormData();
-  formData.append('reqtype', 'fileupload');
-  formData.append('time', '72h');
-  formData.append('fileToUpload', blob, 'Sri_Ayyappa_Crackers_Bill.png');
-  const res = await postForm('https://litterbox.catbox.moe/resources/internals/api.php', formData);
-  if (!res) return null;
-  try {
-    const text = (await res.text()).trim();
-    return /^https:\/\/files\.catbox\.moe\/\S+$/i.test(text) ? text : null;
-  } catch (e) {
-    return null;
-  }
-}
-
-// Provider B: tmpfiles.org - CORS enabled, link stays alive for 48 hours
-async function uploadToTmpfiles(blob) {
-  const formData = new FormData();
-  formData.append('file', blob, 'Sri_Ayyappa_Crackers_Bill.png');
-  formData.append('expire', '172800');
-  const res = await postForm('https://tmpfiles.org/api/v1/upload', formData);
-  if (!res) return null;
-  try {
-    const data = await res.json();
-    const url = data && data.data && data.data.url;
-    return typeof url === 'string' && url.indexOf('https://tmpfiles.org/') === 0 ? url : null;
-  } catch (e) {
-    return null;
-  }
-}
-
-// Resolves with the first value that is truthy, or null when every promise fails
-function firstUseful(promises) {
-  return new Promise((resolve) => {
-    let remaining = promises.length;
-    if (!remaining) return resolve(null);
-    promises.forEach((promise) => {
-      Promise.resolve(promise)
-        .then((value) => {
-          if (value) return resolve(value);
-          remaining -= 1;
-          if (!remaining) resolve(null);
-        })
-        .catch(() => {
-          remaining -= 1;
-          if (!remaining) resolve(null);
-        });
-    });
-  });
-}
-
-// Upload the bill image. Every provider runs at the same time and the first
-// working public link wins. Resolves null when none of them can be reached.
-async function uploadBillImage(canvas) {
-  const blob = await canvasToBlob(canvas);
-  if (!blob) return null;
-
-  return firstUseful(
-    [uploadToLitterbox, uploadToTmpfiles].map((provider) =>
-      Promise.resolve()
-        .then(() => provider(blob))
-        .catch(() => null)
-    )
-  );
-}
-
-// Send Order via WhatsApp (Direct Redirect with Bill Image Link)
-function canvasToFile(canvas, filename = 'Sri_Ayyappa_Crackers_Bill.png') {
-  return new Promise((resolve) => {
-    try {
-      canvas.toBlob((blob) => {
-        if (blob && window.File) {
-          resolve(new File([blob], filename, { type: 'image/png' }));
-        } else {
-          resolve(null);
-        }
-      }, 'image/png');
-    } catch (e) {
-      resolve(null);
-    }
-  });
-}
-
-async function sendWhatsAppBillOrder() {
+// Send Order via WhatsApp - opens WhatsApp straight away with the full bill text.
+function sendWhatsAppBillOrder() {
   if (!lastGeneratedBill) return;
 
-  const btn = document.getElementById('btnSendWhatsAppWithBill');
-  const originalHtml = btn ? btn.innerHTML : '';
-  if (btn) {
-    btn.innerHTML = '<span>⏳ Preparing Bill & Redirecting to WhatsApp...</span>';
-    btn.disabled = true;
-  }
-
-  const canvas = document.getElementById('billCanvas');
-
-  // Decide the delivery path synchronously, while the click gesture is still
-  // active, so popup blockers let the wa.me tab open later on.
-  let nativeSharePossible = false;
-  try {
-    nativeSharePossible = !!(navigator.share && navigator.canShare && window.File);
-  } catch (e) {}
-  let targetWindow = null;
-  if (!nativeSharePossible) {
-    try {
-      targetWindow = window.open('', '_blank');
-    } catch (e) {}
-  }
-
-  const billFile = canvas ? await canvasToFile(canvas) : null;
-
-  // Keep the receipt on the clipboard so it can be pasted (Ctrl + V) in WhatsApp
-  const copiedToClipboard = canvas ? await copyBillImageToClipboard() : false;
-
-  // Upload in the background - the share sheet on mobile is not delayed by it
-  const uploadPromise = uploadBillImage(canvas);
+  const bill = lastGeneratedBill;
+  const targetPhone = bill.targetPhone || '9640499753';
 
   let itemsList = '';
   cart.forEach((item, index) => {
@@ -928,81 +799,42 @@ async function sendWhatsAppBillOrder() {
   const message = 
 `🎆 *SRI AYYAPPA CRACKERS - OFFICIAL ORDER BILL* 🎆
 --------------------------------------------
-🧾 *Bill No:* ${lastGeneratedBill.invoiceNo}
-📅 *Date:* ${lastGeneratedBill.dateStr}
-👤 *Customer Name:* ${lastGeneratedBill.customerName}
-📍 *Delivery Address:* ${lastGeneratedBill.customerAddress}
+🧾 *Bill No:* ${bill.invoiceNo}
+📅 *Date:* ${bill.dateStr}
+👤 *Customer Name:* ${bill.customerName}
+📍 *Delivery Address:* ${bill.customerAddress}
 --------------------------------------------
 📦 *SELECTED FIREWORKS:*
 ${itemsList}
 --------------------------------------------
 📊 *Total Items:* ${cart.reduce((sum, i) => sum + i.quantity, 0)}
-💰 *Grand Total Payable:* ₹${lastGeneratedBill.grandTotal} (20% Festive Discount Applied)
+💰 *Grand Total Payable:* ₹${bill.grandTotal} (20% Festive Discount Applied)
 --------------------------------------------
 Please confirm my order and share payment modes & delivery dispatch. Thank you! 🙏`;
 
-  const targetPhone = lastGeneratedBill.targetPhone || '9640499753';
-
-  if (btn) {
-    btn.innerHTML = originalHtml;
-    btn.disabled = false;
-  }
+  const waUrl = `https://wa.me/91${targetPhone}?text=${encodeURIComponent(message)}`;
 
   playCrackerSound(2.0);
   triggerFireworksBurst(window.innerWidth / 2, window.innerHeight / 2);
 
-  // 1) Prefer the native share sheet so the actual bill photo is ATTACHED
-  //    to WhatsApp (wa.me links can only carry text, not images).
-  if (nativeSharePossible && billFile) {
-    let canShareFile = false;
-    try {
-      canShareFile = navigator.canShare({ files: [billFile] });
-    } catch (e) {}
-    if (canShareFile) {
-      try {
-        await navigator.share({ files: [billFile], text: message });
-        if (targetWindow && !targetWindow.closed) targetWindow.close();
-        showToast('✅ Bill image shared to WhatsApp!');
-        return; // done — image + text delivered via the chosen app
-      } catch (err) {
-        if (err && err.name === 'AbortError') {
-          if (targetWindow && !targetWindow.closed) targetWindow.close();
-          return; // user cancelled the share sheet
-        }
-        // Share failed for another reason: fall through to the wa.me deep link.
-      }
-    }
-  }
-
-  // 2) Fallback: wa.me deep link with full text + the bill receipt image link
-  const imageUrl = await uploadPromise;
-  const finalMessage = imageUrl ? `${message}\n🖼️ Official Bill Receipt Image:\n${imageUrl}` : message;
-  const waUrl = `https://wa.me/91${targetPhone}?text=${encodeURIComponent(finalMessage)}`;
-
+  // Open WhatsApp inside the click gesture so popup blockers allow it.
   let opened = false;
-  if (targetWindow && !targetWindow.closed) {
-    try {
-      targetWindow.location = waUrl;
-      targetWindow.focus();
-      opened = true;
-    } catch (e) {}
-  }
-  if (!opened) {
-    try {
-      opened = !!window.open(waUrl, '_blank');
-    } catch (e) {}
-  }
+  try {
+    const waWindow = window.open(waUrl, '_blank');
+    opened = !!(waWindow && !waWindow.closed);
+  } catch (e) {}
   if (!opened) window.location.href = waUrl;
 
-  // 3) Make sure the customer still receives the bill photo one way or another
-  if (imageUrl) {
-    showToast('📎 Bill image link added to your WhatsApp message');
-  } else if (copiedToClipboard) {
-    showToast('📋 Bill image copied — paste (Ctrl + V) in WhatsApp');
-  } else {
-    downloadBillReceipt();
-    showToast('📥 Bill image downloaded — attach it in WhatsApp');
-  }
+  showToast('✅ Opening WhatsApp with your order bill...');
+
+  // Keep the receipt image on the clipboard so it can be pasted into the chat.
+  copyBillImageToClipboard().then((copied) => {
+    showToast(
+      copied
+        ? '📋 Bill image copied — press Ctrl + V in WhatsApp to attach it'
+        : '🧾 Use "Download Bill Image" to attach the receipt in WhatsApp'
+    );
+  });
 }
 
 // Checkout Entire Cart: Validate address, generate Bill Receipt Image, and open modal
@@ -1605,6 +1437,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   if (btnSendWhatsAppWithBill) {
     btnSendWhatsAppWithBill.addEventListener('click', sendWhatsAppBillOrder);
+  }
+  const btnDownloadBill = document.getElementById('btnDownloadBill');
+  if (btnDownloadBill) {
+    btnDownloadBill.addEventListener('click', downloadBillReceipt);
   }
 
   // Sound Toggle Handler
